@@ -12,24 +12,27 @@ class UserController extends Controller
     public function __construct()
     {
         $roles = Role::all();
-        view()->share('roles',$roles);
+        view()->share('roles', $roles);
     }
+
     public function index()
     {
-        $data = User::orderBy('id','DESC')->get();
+        $data = User::orderBy('id', 'DESC')->get();
         return view('admin.user.index', compact('data'));
     }
+
     public function create()
     {
         return view('admin.user.create');
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required', 'string', 'max:255',
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:'.User::class,
-            'password' => 'required|max:255|min:6',
-            'role' => 'required'
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6', 'max:255'],
+            'role' => ['required', 'string']
         ]);
 
         $user = User::create([
@@ -37,31 +40,43 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
         $user->assignRole($request->role);
-        return redirect()->route('admin.user.index')->with('success','User created successfully.');
+
+        return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
     }
+
     public function edit($id)
     {
-        $user = User::where('id',decrypt($id))->first();
-        return view('admin.user.edit',compact('user'));
+        $user = User::findOrFail(decrypt($id));
+        return view('admin.user.edit', compact('user'));
     }
-    public function update(Request $request, User $user)
+
+    public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'role' => ['required', 'string']
-        ]); 
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-        $user->assignRole($request->role);
-        return redirect()->route('admin.user.index')->with('success','User updated successfully.');
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        $user->syncRoles([$request->role]); // Hapus role lama dan tambahkan role baru.
+
+        return redirect()->route('admin.user.index')->with('success', 'User updated successfully.');
     }
+
     public function destroy($id)
     {
-        User::where('id',decrypt($id))->delete();
-        return redirect()->back()->with('success','User deleted successfully.');
+        $user = User::findOrFail(decrypt($id));
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 }

@@ -13,6 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        
         $data = Category::orderBy('id','DESC')->get();
         return view('admin.category.index',compact('data'));
     }
@@ -64,7 +65,7 @@ class CategoryController extends Controller
         $baseSlug = Str::slug($request->name);
         $uniqueSlug = $baseSlug;
         $counter = 1;
-        
+
         while (Category::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
@@ -74,12 +75,14 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $uniqueSlug,
         ]);
-        return redirect()->route('admin.category.index')->with('info','Category updated successfully.');   
+        return redirect()->route('admin.category.index')->with('info','Category updated successfully.');
     }
 
     public function destroy($id)
     {
         Category::where('id',decrypt($id))->delete();
-        return redirect()->route('admin.category.index')->with('error','Category deleted successfully.');   
+        return redirect()->route('admin.category.index')->with('error','Category deleted successfully.');
     }
+
+
 }

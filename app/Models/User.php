@@ -21,9 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phonenumber',
-        'provider_id',
-        'avatar'
+        'role',
+        'factory_id',
+        'mode',
     ];
 
     /**
@@ -45,4 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function factory()
+    {
+        return $this->belongsTo(Factory::class);  // Relasi ke model Factory
+    }
 }

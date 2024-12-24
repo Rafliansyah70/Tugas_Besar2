@@ -6,7 +6,7 @@
                 <p>Dashboard</p>
             </a>
         </li>
-        @role('admin')
+        @role('superadmin')
             <li class="nav-item">
                 <a href="{{ route('admin.user.index') }}"
                     class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}">
@@ -70,6 +70,23 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.factories.index') }}"
+                    class="nav-link {{ Route::is('admin.factory.index') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-industry"></i>
+                    <p>Factories
+                        {{-- <span class="badge badge-info right">{{ $FactoryCount }}</span> --}}
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.machine.index') }}" class="nav-link {{ Route::is('admin.machine.index') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>Machines
+                        {{-- <span class="badge badge-info right">{{ $MachineCount }}</span> --}}
+                    </p>
+                </a>
+            </li>
         @endrole
         <li class="nav-item">
             <a href="{{ route('admin.profile.edit') }}"
@@ -78,6 +95,5 @@
                 <p>Profile</p>
             </a>
         </li>
-
     </ul>
 </nav>

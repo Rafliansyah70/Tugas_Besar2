@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MachineChart;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -38,7 +39,7 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        User::where('id', $request->user()->id)->update(['mode'=>$request->mode]);
+        User::where('id', $request->user()->id)->update(['mode' => $request->mode]);
 
         $request->user()->save();
 
@@ -65,5 +66,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    
 }

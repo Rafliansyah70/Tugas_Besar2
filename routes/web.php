@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginWithOTPController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use App\Http\Controllers\FrontController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +16,13 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/', function () {
-    $readmePath = base_path('README.md');
+Route::get('/', [FrontController::class, 'index'])->name('welcome');
+// $readmePath = base_path('README.md');
 
-    return view('welcome', [
-        'readmeContent' => Str::markdown(file_get_contents($readmePath)),
-    ]);
-});
+// return view('welcome', [
+//     'readmeContent' => Str::markdown(file_get_contents($readmePath)),
+// ]);
+
 // Login with OTP Routes
 Route::prefix('/otp')->middleware('guest')->name('otp.')->controller(LoginWithOTPController::class)->group(function () {
     Route::get('/login', 'login')->name('login');

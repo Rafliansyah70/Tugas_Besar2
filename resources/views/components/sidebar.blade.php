@@ -25,7 +25,7 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{ route('admin.permission.index') }}"
                     class="nav-link {{ Route::is('admin.permission.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-hat-cowboy"></i>
@@ -69,25 +69,48 @@
                         <span class="badge badge-warning right">{{ $ProductCount }}</span>
                     </p>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a href="{{ route('admin.factories.index') }}"
                     class="nav-link {{ Route::is('admin.factory.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-industry"></i>
                     <p>Factories
-                        {{-- <span class="badge badge-info right">{{ $FactoryCount }}</span> --}}
+                        <span class="badge badge-info right">{{ $FactoryCount }}</span>
                     </p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.machine.index') }}" class="nav-link {{ Route::is('admin.machine.index') ? 'active' : '' }}">
+                <a href="{{ route('admin.machine.index') }}"
+                    class="nav-link {{ Route::is('admin.machine.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cogs"></i>
                     <p>Machines
-                        {{-- <span class="badge badge-info right">{{ $MachineCount }}</span> --}}
+                        <span class="badge badge-info right">{{ $MachineCount }}</span>
                     </p>
                 </a>
             </li>
         @endrole
+        {{--
+        @role('adminA')
+            <li class="nav-item">
+                <a href="{{ route('admin.factories.index') }}"
+                    class="nav-link {{ Route::is('admin.factory.index') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-industry"></i>
+                    <p>Factories
+                        <span class="badge badge-info right">{{ $FactoryCount }}</span>
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.machine.index') }}"
+                    class="nav-link {{ Route::is('admin.machine.index') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>Machines
+                        <span class="badge badge-info right">{{ $MachineCount }}</span>
+                    </p>
+                </a>
+            </li>
+        @endrole --}}
+
         <li class="nav-item">
             <a href="{{ route('admin.profile.edit') }}"
                 class="nav-link {{ Route::is('admin.profile.edit') ? 'active' : '' }}">

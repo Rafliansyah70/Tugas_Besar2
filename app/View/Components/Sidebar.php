@@ -12,6 +12,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\Factory;
+use App\Models\Machine;
 
 class Sidebar extends Component
 {
@@ -21,25 +23,31 @@ class Sidebar extends Component
     public function __construct()
     {
         $userCount = User::count();
-        view()->share('userCount',$userCount);
-        
+        view()->share('userCount', $userCount);
+
         $RoleCount = Role::count();
-        view()->share('RoleCount',$RoleCount);
-        
+        view()->share('RoleCount', $RoleCount);
+
         $PermissionCount = Permission::count();
-        view()->share('PermissionCount',$PermissionCount);
-        
+        view()->share('PermissionCount', $PermissionCount);
+
         $CategoryCount = Category::count();
-        view()->share('CategoryCount',$CategoryCount);
-        
+        view()->share('CategoryCount', $CategoryCount);
+
         $SubCategoryCount = SubCategory::count();
-        view()->share('SubCategoryCount',$SubCategoryCount);
-        
+        view()->share('SubCategoryCount', $SubCategoryCount);
+
         $CollectionCount = Collection::count();
-        view()->share('CollectionCount',$CollectionCount);
-        
+        view()->share('CollectionCount', $CollectionCount);
+
         $ProductCount = Product::count();
-        view()->share('ProductCount',$ProductCount);
+        view()->share('ProductCount', $ProductCount);
+        // Tambahkan perhitungan untuk Factory dan Machine
+        $FactoryCount = Factory::count();
+        view()->share('FactoryCount', $FactoryCount);
+
+        $MachineCount = Machine::count();
+        view()->share('MachineCount', $MachineCount);
     }
 
     /**

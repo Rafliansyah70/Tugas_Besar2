@@ -10,7 +10,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCateoryController;
-use App\Models\Machine;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,7 +28,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::resource('product', ProductController::class);
         Route::resource('factories', FactoryController::class);
         Route::resource('machine', MachineController::class);
+
         Route::get('/get/subcategory', [ProductController::class, 'getsubcategory'])->name('getsubcategory');
         Route::get('/remove-external-img/{id}', [ProductController::class, 'removeImage'])->name('remove.image');
     });
+    // Route::middleware(['role:adminA'])->group(function () {
+    //     Route::resource('user', UserController::class);
+    //     Route::resource('role', RoleController::class);
+    //     Route::resource('permission', PermissionController::class);
+    //     Route::resource('category', CategoryController::class);
+    //     Route::resource('subcategory', SubCateoryController::class);
+    //     Route::resource('collection', CollectionController::class);
+    //     Route::resource('product', ProductController::class);
+    //     Route::resource('factories', FactoryController::class);
+
+    //     Route::get('/get/subcategory', [ProductController::class, 'getsubcategory'])->name('getsubcategory');
+    //     Route::get('/remove-external-img/{id}', [ProductController::class, 'removeImage'])->name('remove.image');
+    // });
 });

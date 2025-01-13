@@ -5,34 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Machine;
 use App\Models\Factory;
 use Illuminate\Http\Request;
-use App\Charts\MachineChart; // Import the chart class
+
 
 
 class MachineController extends Controller
 {
 
-    // public function dashboard(MachineChart $chart)
-    // {
-    //     // Generate chart
-    //     $chartInstance = $chart->build(); // Generate chart with build()
-
-    //     // Pass data to the view
-    //     return view('components.dashboard', [
-    //         'chart' => $chartInstance, // Send chart to view
-    //         'user' => 100, // Example data for user count
-    //         'category' => 50, // Example data for category count
-    //         'product' => 150, // Example data for product count
-    //         'collection' => 20, // Example data for collection count
-    //     ]);
-    // }
-    // Display a listing of the machines
 
 
     public function index()
     {
+        if (auth()->user()->role === 'adminA') {
+            $machines = Machine::with('factory')->where('factory_id', 1)->get(); // Hanya mesin untuk factory_id 1
+        } else {
+            $machines = Machine::with('factory')->get(); // Semua mesin untuk superadmin
+        }
 
-
-        $machines = Machine::with('factory')->get(); // Retrieve all machines with related factory
         return view('admin.machine.index', compact('machines'));
     }
 

@@ -10,7 +10,16 @@ class FactoryController extends Controller
     // Menampilkan daftar factories
     public function index()
     {
-        $data = Factory::orderBy('id', 'DESC')->get();
+        // $data = Factory::orderBy('id', 'DESC')->get();
+
+        if (auth()->user()->role === 'adminA') {
+            // Hanya data factory dengan factory_id 1 untuk adminA
+            $data = Factory::where('id', 1)->get();
+        } else {
+            // Semua data factory untuk superadmin
+            $data = Factory::all();
+        }
+
         return view('admin.factories.index', compact('data'));
     }
 

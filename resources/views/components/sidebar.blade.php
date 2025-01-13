@@ -89,7 +89,7 @@
                 </a>
             </li>
         @endrole
-        {{--
+
         @role('adminA')
             <li class="nav-item">
                 <a href="{{ route('admin.factories.index') }}"
@@ -105,11 +105,11 @@
                     class="nav-link {{ Route::is('admin.machine.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cogs"></i>
                     <p>Machines
-                        <span class="badge badge-info right">{{ $MachineCount }}</span>
+                        <span class="badge badge-info right">{{ $machines }}</span>
                     </p>
                 </a>
             </li>
-        @endrole --}}
+        @endrole
 
         <li class="nav-item">
             <a href="{{ route('admin.profile.edit') }}"

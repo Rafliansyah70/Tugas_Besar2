@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\MachineChart;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;

@@ -48,6 +48,14 @@ class Sidebar extends Component
 
         $MachineCount = Machine::count();
         view()->share('MachineCount', $MachineCount);
+
+        if (auth()->user()->role === 'adminA') {
+            $FactoryCount = Factory::where('id', 1)->get();
+            view()->share('FactoryCount', $FactoryCount->count());
+
+            $machines = Machine::where('factory_id', 1)->get();
+            view()->share('machines', $machines->count());
+        }
     }
 
     /**
